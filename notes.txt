@@ -1,0 +1,19 @@
+key idea behing the method:
+
+    how do we choose a good kernel size?  3x3? 5x5?  --> We never know!
+
+    The idea is: let's try them all, and let the neural network figure out which works best. Maybe they are all important.
+
+Another important idea is: 5x5 convolutions with a lot of channels are too expensive. 
+Lets imagine that we have as input 200x200x256. 
+Apply a 5x5x256 conv is expensive, so what they do is they first apply a 1x1x256 conv 30 times, and only then we compute the 5x5 conv.
+Doing this we are using 5x5x30, instead of 5x5x256!! 
+
+"That is, 1x1 convs are used to compute reduction before the expensive 3x3 and 5x5 convs."
+
+The inception modules dont change the "image" width and length, they only increase the number of channels.
+
+Imagine, in 28x28x192 enters the module, 28x28x(y) (y>192) leaves the module.
+
+GoogleNet outputs (in training) 3 softmaxs. One at the end, and two in the middle. The goal is to increase regularization.
+By outputing something in the middle, we garantee that those layers are doing something useful.
